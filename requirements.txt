@@ -1,0 +1,17 @@
+gdown=5.2.0
+huggingface-hub=0.26.3
+ipykernel=6.29.5
+ipython=8.30.0
+librosa=0.10.2.post1
+matplotlib=3.9.2
+matplotlib-inline=0.1.7
+numpy=2.0.2
+pandas=2.2.3
+python=3.11.10
+pytorch=2.5.1
+plotly
+regex=2024.11.6
+scikit-learn=1.5.2
+torchaudio=2.5.1
+tqdm=4.67.1
+transformers=4.46.3
