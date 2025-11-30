@@ -50,10 +50,10 @@ else:
     device = torch.device("cpu")
 print(f"Running on {device}.")
 
-model_name = "openai/whisper-large"
+model_name = "openai/whisper-base"
 
 model = AutoModel.from_pretrained(model_name).to(device)
 processor = AutoProcessor.from_pretrained(model_name)
 
-feature_extractor(df, "whisper", "l2",  languages, processor, model, device)
+feature_extractor(df, "whisper", "l2", languages, processor, model, device) 
 feature_extractor(df, "whisper", "temp", languages, processor, model, device)
