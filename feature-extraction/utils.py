@@ -53,7 +53,8 @@ def feature_extractor(df, name, q, languages, processor, model, device):
         emb = []
         processed_count = 0
         
-        for idx, path in enumerate(tqdm(temp, desc=f"Processing {lang}"), start=1):
+        pbar = tqdm(temp, desc=f"Processing {lang}")
+        for idx, path in enumerate(pbar, start=1):
             if not os.path.exists(path):
                 print(f"Warning: File not found - {path}")
                 continue
@@ -66,16 +67,19 @@ def feature_extractor(df, name, q, languages, processor, model, device):
                 emb.append(outputs.detach().cpu().numpy())
                 processed_count += 1
                 
-                # Print progress every 50 files
+                # Force newline every 50 files
                 if processed_count % 50 == 0:
-                    print(f"\nProcessing {lang}: Completed {processed_count}/{len(temp)} audio files")
+                    pbar.close()
+                    print(f"Processing {lang}: Completed {processed_count}/{len(temp)} audio files")
+                    pbar = tqdm(temp[idx:], desc=f"Processing {lang}", initial=idx, total=len(temp))
                     
             except Exception as e:
                 print(f"Error processing {path}: {e}")
                 continue
         
+        pbar.close()
         # Print final count
-        print(f"\nProcessing {lang}: Completed {processed_count}/{len(temp)} audio files (Final)")
+        print(f"Processing {lang}: Completed {processed_count}/{len(temp)} audio files (Final)")
         
         if len(emb) == 0:
             print(f"Warning: No valid embeddings extracted for {lang}. Skipping...")
