@@ -83,8 +83,8 @@ def create_csv_from_npy(feature_dir, output_csv):
     # Create output directory if it doesn't exist
     os.makedirs(os.path.dirname(output_csv), exist_ok=True)
     
-    # Save to CSV
-    df.to_csv(output_csv, index=False)
+    # Save to CSV (with index to match expected format)
+    df.to_csv(output_csv, index=True)
     print(f"\nSaved {len(df)} samples to {output_csv}")
     print(f"Columns: {df.columns.tolist()[:5]}... (showing first 5)")
     print(f"Shape: {df.shape}")
