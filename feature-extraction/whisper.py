@@ -8,10 +8,10 @@ from transformers import AutoModel, AutoProcessor
 from utils import feature_extractor
 
 # Path to the directory containing CSV files
-csv_directory = "./adima-abuse-audio-/annotations/"
+csv_directory = "./annotations/"
 
 # Path to the directory containing audio directories
-audio_directory = "./adima-abuse-audio-/Prima/SC_audio_"
+audio_directory = "./content/audio/SC_audio_"
 
 # List of language names
 languages = ["Bengali", "Bhojpuri" ,"Gujarati", "Haryanvi","Hindi", "Kannada", "Malayalam", "Odia", "Punjabi", "Tamil"] 
