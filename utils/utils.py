@@ -6,9 +6,9 @@ import torch.nn.functional as F
 from sklearn.metrics import accuracy_score, f1_score
 import gdown
 
-from MAML import MAML
-from dataset import AudioDataset
-from model import SimpleNN
+from .MAML import MAML
+from .dataset import AudioDataset
+from .model import SimpleNN
 
 
 def stratified_sample(df, shot):
@@ -61,7 +61,10 @@ def evaluate_model(test_loaders, maml, device):
     return pd.DataFrame(results).T
 
 def maml_adima(batch_size, shot, path, input_dim, hidden_dim, output_dim, lr_inner, lr_outer, n_epochs, feat, norm, device):
-    df = pd.read_csv(path).drop(['Unnamed: 0'], axis=1)
+    df = pd.read_csv(path)
+    if 'Unnamed: 0' in df.columns:
+        df = df.drop(['Unnamed: 0'], axis=1)
+    
     df.abuse = np.where(df.abuse.values == 'Yes', 1, 0)
     languages = df['language'].unique()
 
@@ -91,9 +94,11 @@ def maml_adima(batch_size, shot, path, input_dim, hidden_dim, output_dim, lr_inn
     
     print(f"---Shot Size: {shot}---")
 
-    train_maml(train_loader, maml, n_epochs)
+    # FIX: Add device parameter here
+    train_maml(train_loader, maml, n_epochs, device)
 
-    evaluation_results = evaluate_model(test_loaders, maml)
+    # FIX: Add device parameter here too
+    evaluation_results = evaluate_model(test_loaders, maml, device)
     
     evaluation_results.to_csv(f"./results/{norm}/{feat}/{shot}-result.csv")
 
