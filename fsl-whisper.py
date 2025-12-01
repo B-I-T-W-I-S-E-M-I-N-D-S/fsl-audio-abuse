@@ -23,9 +23,11 @@ shot_sizes = [50, 100, 150, 200]
 path = "./data/whisper-feat.csv"
 print("---Whisper Few Shot---")
 for shot in shot_sizes:
-    maml_adima(128, shot, path, 768, 128, 2, 0.001, 0.001, 150, "whisper", "Temporal-Mean", device=device)
+    # FIXED: Changed input_dim from 768 to 512 (Whisper base encoder dimension)
+    maml_adima(128, shot, path, 512, 128, 2, 0.001, 0.001, 150, "whisper", "Temporal-Mean", device=device)
 
 path = "./data/whisper-l2-feats.csv"
 print("---Whisper L2 Few Shot---")
 for shot in shot_sizes:
-    maml_adima(128, shot, path, 768, 128, 2, 0.001, 0.001, 150, "whisper", "L2-Norm", device=device)
+    # FIXED: Changed input_dim from 768 to 512 (Whisper base encoder dimension)
+    maml_adima(128, shot, path, 512, 128, 2, 0.001, 0.001, 150, "whisper", "L2-Norm", device=device)
